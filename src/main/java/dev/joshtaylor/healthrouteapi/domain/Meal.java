@@ -1,5 +1,6 @@
 package dev.joshtaylor.healthrouteapi.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -34,6 +35,7 @@ public class Meal
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
+    @JsonManagedReference
     @Column(name = "foods")
     private Set<Food> foods;
 

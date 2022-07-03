@@ -18,6 +18,65 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Meal'
+    post:
+      summary: Create a new Meal
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Meal'
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request, failed to create Meal
+  /foods:
+    get:
+      summary: Returns a list of all Foods
+      responses:
+        '200':
+          description: A JSON Array of Foods
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Food'
+    post:
+      summary: Create a new Food.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Food'
+      responses:
+        '201':
+          description: Created.
+        '400':
+          description: Bad Request.
+  /foods/{food_id}:
+    get:
+      summary: Get a food by ID
+      parameters:
+        - in: path
+          name: food_id
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the food to get.
+      responses:
+        '200':
+          description: A food object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Food'
+        '400':
+          description: The specified food ID is invalid or not a number.
+        '404':
+          description: A food with the specified ID was not found.
 
 components:
   schemas:

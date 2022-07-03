@@ -1,5 +1,6 @@
 package dev.joshtaylor.healthrouteapi.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -20,7 +21,8 @@ import javax.persistence.Table;
 @RequiredArgsConstructor
 public class Food {
 
-    @ManyToOne
+    @ManyToOne(optional = false)
+    @JsonBackReference
     @JoinColumn(name = "meal_id")
     private Meal meal;
 
