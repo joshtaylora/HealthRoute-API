@@ -1,0 +1,63 @@
+openapi: 3.0.3
+info:
+  title: Health-Route
+  description: Health-Route
+  version: 1.0.0
+servers:
+  - url: 'localhost:8080/api/v1'
+paths:
+  /meals:
+    get:
+      summary: Returns a list of all Meals
+      responses:
+        '200':
+          description: A JSON array of meals
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Meal'
+
+components:
+  schemas:
+    Food:
+      type: object
+      properties:
+        food_id:
+          type: integer
+          # fill out example
+        name:
+          type: string
+        calories:
+          type: integer
+        carbohydrates:
+          type: integer
+        protein:
+          type: integer
+        fat:
+          type: integer
+    Meal:
+      type: object
+      properties:
+        meal_id:
+          type: integer
+        timestamp:
+          type: string
+        foods:
+          type: array
+          items:
+            $ref: '#/components/schemas/Food'
+    Medication:
+      type: object
+      properties:
+        medication_id:
+          type: integer
+        name:
+          type: string
+        quantity:
+          type: integer
+        strength:
+          type: integer
+        dosage_unit:
+          type: string

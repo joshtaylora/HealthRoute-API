@@ -23,15 +23,15 @@ public class Medication
     @Column(name = "medication_id", nullable = false)
     private Long medication_id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "quantity", nullable = false)
+    @Column(name = "quantity")
     private int quantity;
 
-    @Column(name = "strength", nullable = false)
+    @Column(name = "strength")
     private int strength;
 
-    @Column(name = "dosage_unit", nullable = false)
+    @Column(name = "dosage_unit")
     private String dosage_unit;
 }

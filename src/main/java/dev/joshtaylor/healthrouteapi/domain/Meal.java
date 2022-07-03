@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,10 +26,18 @@ public class Meal
     @Column(name = "meal_id", nullable = false)
     private Long meal_id;
 
-    @Column(name = "timestamp", nullable = false)
-    private java.sql.Timestamp mealTime;
+    @Column(name = "timestamp")
+    private String mealTime;
 
-    @OneToMany(mappedBy = "meal")
-    @Column(name = "foods", nullable = false)
+    @OneToMany(
+            mappedBy = "meal",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @Column(name = "foods")
     private Set<Food> foods;
+
+    public void setTimeStamp(java.sql.Timestamp timeStamp) {
+        this.mealTime = timeStamp.toString();
+    }
 }

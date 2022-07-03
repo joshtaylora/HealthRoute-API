@@ -18,31 +18,31 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "FOODS")
 @RequiredArgsConstructor
-public class Food
-{
+public class Food {
+
     @ManyToOne
-    @JoinColumn(name = "meal_id", nullable = false)
+    @JoinColumn(name = "meal_id")
     private Meal meal;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "food_id", nullable = false)
-    private Long id;
+    private Long foodId;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "calories", nullable = false)
+    @Column(name = "calories")
     private int calories;
 
 
-    @Column(name = "carbohydrates", nullable = false)
+    @Column(name = "carbohydrates")
     private int carbs;
 
-    @Column(name = "protein", nullable = false)
+    @Column(name = "protein")
     private int protein;
 
-    @Column(name = "fat", nullable = false)
+    @Column(name = "fat")
     private int fat;
 
 }
