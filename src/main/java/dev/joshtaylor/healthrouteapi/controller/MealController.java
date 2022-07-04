@@ -1,5 +1,4 @@
 package dev.joshtaylor.healthrouteapi.controller;
-
 import dev.joshtaylor.healthrouteapi.domain.Meal;
 import dev.joshtaylor.healthrouteapi.exception.MealNotFoundException;
 import dev.joshtaylor.healthrouteapi.repository.MealRepository;
@@ -17,8 +16,8 @@ import java.util.List;
 @RequestMapping("/api/v1/meals")
 public class MealController
 {
+    @Autowired
     private MealRepository mealRepository;
-
     @GetMapping("")
     public List<Meal> getAllMeals()
     {
@@ -26,7 +25,8 @@ public class MealController
     }
 
     @PostMapping("")
-    public Meal createMeal (@RequestBody Meal newMeal) {
+    public Meal createMeal (@RequestBody Meal mealReq) {
+        Meal newMeal = new Meal(mealReq.getTimestamp());
         return mealRepository.save(newMeal);
     }
 
@@ -35,5 +35,4 @@ public class MealController
         return mealRepository.findById(mealId)
                 .orElseThrow(() -> new MealNotFoundException(mealId));
     }
-
 }

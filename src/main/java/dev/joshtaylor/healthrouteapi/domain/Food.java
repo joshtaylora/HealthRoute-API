@@ -1,50 +1,37 @@
 package dev.joshtaylor.healthrouteapi.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "FOODS")
 @RequiredArgsConstructor
+@Table(name = "food")
 public class Food {
 
-    @ManyToOne(optional = false)
-    @JsonBackReference
-    @JoinColumn(name = "meal_id")
-    private Meal meal;
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "food_id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long foodId;
 
-    @Column(name = "name")
+    private Long mealId;
+
     private String name;
 
-    @Column(name = "calories")
     private int calories;
 
 
-    @Column(name = "carbohydrates")
     private int carbs;
 
-    @Column(name = "protein")
     private int protein;
 
-    @Column(name = "fat")
     private int fat;
 
 }

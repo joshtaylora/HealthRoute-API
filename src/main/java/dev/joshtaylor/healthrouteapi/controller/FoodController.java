@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/foods")
 public class FoodController {
-
+    @Autowired
     private FoodRepository foodRepository;
 
     @GetMapping("")
@@ -36,5 +36,10 @@ public class FoodController {
 
         return foodRepository.findById(foodId)
             .orElseThrow(() -> new FoodNotFoundException(foodId));
+    }
+
+    @GetMapping("/meal/{mealId}")
+    public List<Food> getMealFoods(@PathVariable Long mealId) {
+        return foodRepository.findAllByMealId(mealId);
     }
 }

@@ -25,12 +25,34 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Meal'
+              type: object
+              properties:
+                timestamp:
+                  type: string
       responses:
         '201':
           description: Created
         '400':
           description: Bad Request, failed to create Meal
+  /meals/{mealId}:
+    get:
+      summary: Get a meal by it's ID.
+      parameters:
+        - in: path
+          name: mealId
+          schema:
+            type: integer
+          required: true
+          description: The Numeric ID of the meal being retrieved.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Meal'
   /foods:
     get:
       summary: Returns a list of all Foods
@@ -50,18 +72,31 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Food'
+              type: object
+              properties:
+                mealId:
+                  type: integer
+                name:
+                  type: string
+                calories:
+                  type: integer
+                carbohydrates:
+                  type: integer
+                protein:
+                  type: integer
+                fat:
+                  type: integer
       responses:
         '201':
           description: Created.
         '400':
           description: Bad Request.
-  /foods/{food_id}:
+  /foods/{foodId}:
     get:
       summary: Get a food by ID
       parameters:
         - in: path
-          name: food_id
+          name: foodId
           schema:
             type: integer
           required: true
@@ -77,15 +112,34 @@ paths:
           description: The specified food ID is invalid or not a number.
         '404':
           description: A food with the specified ID was not found.
-
+  /foods/meal/{mealId}:
+    get:
+      summary: Get all foods for a specified meal
+      parameters:
+        - in: path
+          name: mealId
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the meal whose foods are being retrieved.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Food'
 components:
   schemas:
     Food:
       type: object
       properties:
-        food_id:
+        foodId:
           type: integer
-          # fill out example
+        mealId:
+          type: integer
         name:
           type: string
         calories:
@@ -99,18 +153,14 @@ components:
     Meal:
       type: object
       properties:
-        meal_id:
+        mealId:
           type: integer
         timestamp:
           type: string
-        foods:
-          type: array
-          items:
-            $ref: '#/components/schemas/Food'
     Medication:
       type: object
       properties:
-        medication_id:
+        medicationId:
           type: integer
         name:
           type: string
@@ -118,5 +168,5 @@ components:
           type: integer
         strength:
           type: integer
-        dosage_unit:
+        dosageUnit:
           type: string
