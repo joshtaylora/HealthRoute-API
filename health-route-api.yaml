@@ -112,6 +112,20 @@ paths:
           description: The specified food ID is invalid or not a number.
         '404':
           description: A food with the specified ID was not found.
+    delete:
+      summary: Delete a food
+      parameters:
+        - in: path
+          name: foodId
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the food to delete.
+      responses:
+        '200':
+          description: Food successfully deleted.
+        '404':
+          description: Food could not be found.
   /foods/meal/{mealId}:
     get:
       summary: Get all foods for a specified meal

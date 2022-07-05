@@ -4,6 +4,7 @@ import dev.joshtaylor.healthrouteapi.domain.Food;
 import dev.joshtaylor.healthrouteapi.exception.FoodNotFoundException;
 import dev.joshtaylor.healthrouteapi.repository.FoodRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,6 +37,14 @@ public class FoodController {
 
         return foodRepository.findById(foodId)
             .orElseThrow(() -> new FoodNotFoundException(foodId));
+    }
+
+    @DeleteMapping("/{foodId}")
+    public Food deleteFood (@PathVariable Long foodId) {
+        Food deleteFood = foodRepository.findById(foodId)
+                .orElseThrow(() -> new FoodNotFoundException(foodId));
+        foodRepository.deleteById(foodId);
+        return deleteFood;
     }
 
     @GetMapping("/meal/{mealId}")
