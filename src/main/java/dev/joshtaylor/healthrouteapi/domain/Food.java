@@ -19,10 +19,10 @@ public class Food {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long foodId;
+    private Long food_id;
+
 
     private Long mealId;
-
     private String name;
 
     private int calories;
@@ -33,5 +33,13 @@ public class Food {
     private int protein;
 
     private int fat;
+
+    public Food (String name, int calories, int carbs, int protein, int fat) {
+        this.name = name;
+        this.calories = calories;
+        this.carbs = carbs;
+        this.protein = protein;
+        this.fat = fat;
+    }
 
 }

@@ -145,12 +145,60 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Food'
+  /foods/{foodId}/{mealId}:
+    patch:
+      summary: Add a Food to a Meal.
+      parameters:
+        - in: path
+          name: foodId
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID for a Food.
+        - in: path
+          name: mealId
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID for a Meal.
+      responses:
+        '200':
+          description: Food successfully added to Meal.
+  /medications:
+    get:
+      summary: Retrieve all Medications.
+      responses:
+        '200':
+          description: A list of Medications
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Medication'
+  /DailyLogs:
+    get:
+      summary: Retrieve all DailyLogs.
+      responses:
+        '200':
+          description: A list of DailyLogs.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DailyLog'
+    post:
+      summary: Create a new DailyLog.
+      responses:
+        '201':
+          description: Successfully created a new DailyLog.
 components:
   schemas:
     Food:
       type: object
       properties:
-        foodId:
+        food_id:
           type: integer
         mealId:
           type: integer
@@ -158,29 +206,52 @@ components:
           type: string
         calories:
           type: integer
+          example: 280
         carbohydrates:
           type: integer
+          example: 16
         protein:
           type: integer
+          example: 14
         fat:
           type: integer
+          example: 32
     Meal:
       type: object
       properties:
-        mealId:
+        meal_id:
           type: integer
         timestamp:
           type: string
+          format: date-time
+          example: 2022-07-05T13:12:40Z
     Medication:
       type: object
       properties:
-        medicationId:
+        medication_id:
           type: integer
         name:
           type: string
+          example: Prednisone
         quantity:
           type: integer
+          example: 1
         strength:
           type: integer
-        dosageUnit:
+          example: 20
+        dosage_unit:
           type: string
+          example: mg
+    DailyLog:
+      type: object
+      properties:
+        dailylog_id:
+          type: integer
+        meals:
+          type: array
+          items:
+            $ref: '#/components/schemas/Meal'
+        date:
+          type: string
+          format: date
+          example: 2022-07-05

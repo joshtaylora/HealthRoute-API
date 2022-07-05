@@ -19,7 +19,7 @@ public class Medication {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long medicationId;
+    private Long medication_id;
 
     private String name;
 
@@ -27,5 +27,5 @@ public class Medication {
 
     private int strength;
 
-    private String dosageUnit;
+    private String dosage_unit;
 }
