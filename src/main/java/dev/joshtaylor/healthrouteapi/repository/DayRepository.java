@@ -1,8 +1,8 @@
 package dev.joshtaylor.healthrouteapi.repository;
 
-import dev.joshtaylor.healthrouteapi.domain.DailyLog;
+import dev.joshtaylor.healthrouteapi.domain.Day;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface DailyLogRepository extends JpaRepository<DailyLog, Long> {}
+public interface DayRepository extends JpaRepository<Day, Long> {}

@@ -3,7 +3,6 @@ package dev.joshtaylor.healthrouteapi.domain;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,8 +17,8 @@ import java.util.List;
 @Setter
 @Entity
 @RequiredArgsConstructor
-@Table(name = "DailyLogs")
-public class DailyLog {
+@Table(name = "days")
+public class Day {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +30,7 @@ public class DailyLog {
             "dailyLogId")
     private List<Meal> meals;
 
-    public DailyLog(String date) {
+    public Day (String date) {
         this.date = date;
     }
 }

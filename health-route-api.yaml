@@ -176,7 +176,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Medication'
-  /DailyLogs:
+  /day:
     get:
       summary: Retrieve all DailyLogs.
       responses:
@@ -189,10 +189,10 @@ paths:
                 items:
                   $ref: '#/components/schemas/DailyLog'
     post:
-      summary: Create a new DailyLog.
+      summary: Create a new Day.
       responses:
         '201':
-          description: Successfully created a new DailyLog.
+          description: Successfully created a new Day.
 components:
   schemas:
     Food:
