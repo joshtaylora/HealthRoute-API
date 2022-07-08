@@ -14,15 +14,15 @@ import javax.persistence.Table;
 @Setter
 @Entity
 @RequiredArgsConstructor
-@Table(name = "food")
+@Table(name = "foods")
 public class Food {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long food_id;
+    private Long id;
 
 
-    private Long mealId;
+    private Long meal_id;
     private String name;
 
     private int calories;

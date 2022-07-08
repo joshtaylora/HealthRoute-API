@@ -22,7 +22,7 @@ public class Meal {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long meal_id;
+    private Long id;
 
     private String timestamp;
 
@@ -30,10 +30,10 @@ public class Meal {
         this.timestamp = timestamp;
     }
 
-    @OneToMany(fetch = FetchType.EAGER, targetEntity=Food.class, mappedBy="mealId")
+    @OneToMany(fetch = FetchType.EAGER, targetEntity=Food.class, mappedBy="meal_id")
     public List<Food> foods;
 
-    private Long dailyLogId;
+    private Long day_id;
     public void setFoods(List<Food> foods) {
         this.foods = foods;
     }

@@ -14,12 +14,14 @@ import javax.persistence.Table;
 @Setter
 @Entity
 @RequiredArgsConstructor
-@Table(name = "medication")
+@Table(name = "medications")
 public class Medication {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long medication_id;
+    private Long id;
+
+    private Long day_id;
 
     private String name;
 

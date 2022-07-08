@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,25 +33,25 @@ public class FoodController {
         return foodRepository.save(newFood);
     }
 
-    @GetMapping("/{foodId}")
-    public Food getFoodById (@PathVariable Long foodId) {
+    @GetMapping("/{food_id}")
+    public Food getFoodById (@PathVariable Long food_id) {
 
-        return foodRepository.findById(foodId)
-            .orElseThrow(() -> new FoodNotFoundException(foodId));
+        return foodRepository.findById(food_id)
+            .orElseThrow(() -> new FoodNotFoundException(food_id));
     }
 
-    @DeleteMapping("/{foodId}")
-    public Food deleteFood (@PathVariable Long foodId) {
-        Food deleteFood = foodRepository.findById(foodId)
-                .orElseThrow(() -> new FoodNotFoundException(foodId));
-        foodRepository.deleteById(foodId);
+    @DeleteMapping("/{food_id}")
+    public Food deleteFood (@PathVariable Long food_id) {
+        Food deleteFood = foodRepository.findById(food_id)
+                .orElseThrow(() -> new FoodNotFoundException(food_id));
+        foodRepository.deleteById(food_id);
         return deleteFood;
     }
 
-    @PatchMapping("/{foodId}/{mealId}")
-    public Food addFoodToMeal(@PathVariable Long foodId, @PathVariable Long mealId) {
-        Food food = foodRepository.getById(foodId);
-        food.setMealId(mealId);
+    @PatchMapping("/{food_id}/{meal_id}")
+    public Food addFoodToMeal(@PathVariable Long food_id, @PathVariable Long meal_id) {
+        Food food = foodRepository.getById(food_id);
+        food.setMeal_id(meal_id);
         return foodRepository.save(food);
     }
 }

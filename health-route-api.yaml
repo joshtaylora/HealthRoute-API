@@ -53,6 +53,28 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Meal'
+  /meals/day/{mealId}:
+    patch:
+      summary: Add meal to a Day.
+      parameters:
+        - in: path
+          name: mealId
+          schema:
+            type: integer
+          required: true
+          description: The Numeric ID of a Meal.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Day'
+      responses:
+        200:
+          description: Successfully added Meal to a Day.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Meal'
   /foods:
     get:
       summary: Returns a list of all Foods
@@ -187,20 +209,50 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/DailyLog'
+                  $ref: '#/components/schemas/Day'
     post:
       summary: Create a new Day.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                date:
+                  type: string
+                  format: date
+                  example: 2022-07-05
       responses:
         '201':
           description: Successfully created a new Day.
+  /day/{dayId}/meals:
+    get:
+      summary: Retrieve the meals for a day
+      parameters:
+        - in: path
+          name: dayId
+          schema:
+            type: integer
+          description: Numeric ID for a Day object.
+          required: true
+      responses:
+        200:
+          description: A list of Meals associated with a Day.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Meal'
 components:
   schemas:
     Food:
       type: object
       properties:
-        food_id:
+        id:
           type: integer
-        mealId:
+        meal_id:
           type: integer
         name:
           type: string
@@ -219,7 +271,7 @@ components:
     Meal:
       type: object
       properties:
-        meal_id:
+        id:
           type: integer
         timestamp:
           type: string
@@ -228,7 +280,7 @@ components:
     Medication:
       type: object
       properties:
-        medication_id:
+        id:
           type: integer
         name:
           type: string
@@ -242,10 +294,10 @@ components:
         dosage_unit:
           type: string
           example: mg
-    DailyLog:
+    Day:
       type: object
       properties:
-        dailylog_id:
+        id:
           type: integer
         meals:
           type: array

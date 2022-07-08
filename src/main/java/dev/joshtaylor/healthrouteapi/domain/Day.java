@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,15 +21,18 @@ public class Day {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long dailylog_id;
+    private Long id;
 
     private String date;
 
-    @OneToMany(fetch = FetchType.EAGER, targetEntity = Meal.class, mappedBy =
-            "dailyLogId")
+    @OneToMany(targetEntity = Meal.class, mappedBy = "day_id")
     private List<Meal> meals;
 
+    @OneToMany(targetEntity = Medication.class, mappedBy = "day_id")
+    private List<Medication> medications;
+
     public Day (String date) {
+
         this.date = date;
     }
 }
