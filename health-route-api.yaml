@@ -124,15 +124,15 @@ paths:
           required: true
           description: Numeric ID of the food to get.
       responses:
-        '200':
+        200:
           description: A food object.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Food'
-        '400':
+        400:
           description: The specified food ID is invalid or not a number.
-        '404':
+        404:
           description: A food with the specified ID was not found.
     delete:
       summary: Delete a food
@@ -144,29 +144,10 @@ paths:
           required: true
           description: Numeric ID of the food to delete.
       responses:
-        '200':
+        200:
           description: Food successfully deleted.
-        '404':
+        404:
           description: Food could not be found.
-  /foods/meal/{mealId}:
-    get:
-      summary: Get all foods for a specified meal
-      parameters:
-        - in: path
-          name: mealId
-          schema:
-            type: integer
-          required: true
-          description: Numeric ID of the meal whose foods are being retrieved.
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Food'
   /foods/{foodId}/{mealId}:
     patch:
       summary: Add a Food to a Meal.
@@ -198,7 +179,72 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Medication'
-  /day:
+    post:
+      summary: Create a new Medication.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                day_id:
+                  type: integer
+                name:
+                  type: string
+                  example: Prednisone
+                quantity:
+                  type: integer
+                strength:
+                  type: integer
+                dosage_unit:
+                  type: string
+                  example: 'mg'
+      responses:
+        201:
+          description: Medication successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Medication'
+  /medications/:medication_id:
+    get:
+      summary: Retrieve a Medication by it's Numeric ID.
+      parameters:
+        - in: path
+          name: medication_id
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID that uniquely identifies a Medication.
+      responses:
+        200:
+          description: The Medication retrieved via the given medication_id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Medication'
+  /medications/:medication_id/day:
+    patch:
+      description: Add a medication to a Day.
+      parameters:
+        - in: path
+          name: medication_id
+          schema:
+            type: integer
+          required: true
+          description: The Numeric ID that uniquely identifies a Medication.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                day_id:
+                  type: integer
+      responses:
+        200:
+          description: Success.
+  /days:
     get:
       summary: Retrieve all DailyLogs.
       responses:
