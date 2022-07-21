@@ -8,6 +8,8 @@ servers:
 paths:
   /meals:
     get:
+      tags:
+        - Meals
       summary: Returns a list of all Meals
       responses:
         '200':
@@ -19,6 +21,8 @@ paths:
                 items:
                   $ref: '#/components/schemas/Meal'
     post:
+      tags:
+        - Meals
       summary: Create a new Meal
       requestBody:
         required: true
@@ -36,6 +40,8 @@ paths:
           description: Bad Request, failed to create Meal
   /meals/{mealId}:
     get:
+      tags:
+        - Meals
       summary: Get a meal by it's ID.
       parameters:
         - in: path
@@ -55,6 +61,8 @@ paths:
                   $ref: '#/components/schemas/Meal'
   /meals/day/{mealId}:
     patch:
+      tags:
+        - Meals
       summary: Add meal to a Day.
       parameters:
         - in: path
@@ -77,6 +85,8 @@ paths:
                 $ref: '#/components/schemas/Meal'
   /foods:
     get:
+      tags:
+        - Foods
       summary: Returns a list of all Foods
       responses:
         '200':
@@ -88,6 +98,8 @@ paths:
                 items:
                   $ref: '#/components/schemas/Food'
     post:
+      tags:
+        - Foods
       summary: Create a new Food.
       requestBody:
         required: true
@@ -115,6 +127,8 @@ paths:
           description: Bad Request.
   /foods/{foodId}:
     get:
+      tags:
+        - Foods
       summary: Get a food by ID
       parameters:
         - in: path
@@ -135,6 +149,8 @@ paths:
         404:
           description: A food with the specified ID was not found.
     delete:
+      tags:
+        - Foods
       summary: Delete a food
       parameters:
         - in: path
@@ -150,6 +166,8 @@ paths:
           description: Food could not be found.
   /foods/{foodId}/{mealId}:
     patch:
+      tags:
+        - Foods
       summary: Add a Food to a Meal.
       parameters:
         - in: path
@@ -169,6 +187,8 @@ paths:
           description: Food successfully added to Meal.
   /medications:
     get:
+      tags:
+        - Medications
       summary: Retrieve all Medications.
       responses:
         '200':
@@ -180,6 +200,8 @@ paths:
                 items:
                   $ref: '#/components/schemas/Medication'
     post:
+      tags:
+        - Medications
       summary: Create a new Medication.
       requestBody:
         content:
@@ -208,6 +230,8 @@ paths:
                 $ref: '#/components/schemas/Medication'
   /medications/:medication_id:
     get:
+      tags:
+        - Medications
       summary: Retrieve a Medication by it's Numeric ID.
       parameters:
         - in: path
@@ -225,6 +249,8 @@ paths:
                 $ref: '#/components/schemas/Medication'
   /medications/:medication_id/day:
     patch:
+      tags:
+        - Medications
       description: Add a medication to a Day.
       parameters:
         - in: path
@@ -246,6 +272,8 @@ paths:
           description: Success.
   /days:
     get:
+      tags:
+        - days
       summary: Retrieve all DailyLogs.
       responses:
         '200':
@@ -257,6 +285,8 @@ paths:
                 items:
                   $ref: '#/components/schemas/Day'
     post:
+      tags:
+        - days
       summary: Create a new Day.
       requestBody:
         required: true
@@ -274,6 +304,8 @@ paths:
           description: Successfully created a new Day.
   /day/{dayId}/meals:
     get:
+      tags:
+        - days
       summary: Retrieve the meals for a day
       parameters:
         - in: path
