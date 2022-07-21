@@ -273,7 +273,7 @@ paths:
   /days:
     get:
       tags:
-        - days
+        - Days
       summary: Retrieve all DailyLogs.
       responses:
         '200':
@@ -286,7 +286,7 @@ paths:
                   $ref: '#/components/schemas/Day'
     post:
       tags:
-        - days
+        - Days
       summary: Create a new Day.
       requestBody:
         required: true
@@ -305,7 +305,7 @@ paths:
   /day/{dayId}/meals:
     get:
       tags:
-        - days
+        - Days
       summary: Retrieve the meals for a day
       parameters:
         - in: path
