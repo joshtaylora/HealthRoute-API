@@ -274,10 +274,10 @@ paths:
     get:
       tags:
         - Days
-      summary: Retrieve all DailyLogs.
+      summary: Retrieve all Days.
       responses:
         '200':
-          description: A list of DailyLogs.
+          description: A list of Days.
           content:
             application/json:
               schema:
