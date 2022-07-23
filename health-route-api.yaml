@@ -323,6 +323,28 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Meal'
+  /day/{dayId}/weight:
+    patch:
+      tags:
+        - Days
+      summary: Update a Day object with a Weight.
+      parameters:
+        - in: path
+          name: dayId
+          schema:
+            type: integer
+          description: Numeric ID for a Day object.
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Weight'
+      responses:
+        200:
+          description: A Day object with the Weight attribute updated.
+        404:
+          description: The Day object specified in path variable could not be found.
 components:
   schemas:
     Food:
@@ -385,3 +407,17 @@ components:
           type: string
           format: date
           example: 2022-07-05
+    Weight:
+      type: object
+      properties:
+        id:
+          type: integer
+        unit:
+          type: string
+          description: The unit of measurement being used.
+          default: 'lbs'
+          example: 'lbs'
+        value:
+          type: number
+          format: double
+          example: 161.68
