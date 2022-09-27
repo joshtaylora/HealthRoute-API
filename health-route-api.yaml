@@ -375,8 +375,15 @@ components:
           type: integer
         timestamp:
           type: string
+          description: Time that the meal was eaten.
           format: date-time
           example: 2022-07-05T13:12:40Z
+        foods:
+          type: array
+          description: An array of foods associated with the meal.
+          items:
+            $ref: '#/components/schemas/Food'
+
     Medication:
       type: object
       properties:
@@ -384,15 +391,19 @@ components:
           type: integer
         name:
           type: string
+          description: Medication name.
           example: Prednisone
         quantity:
           type: integer
+          description: Amount of medication to be taken.
           example: 1
         strength:
           type: integer
+          description: Amount of medication per dosage unit.
           example: 20
         dosage_unit:
           type: string
+          description: The unit associated with the medication dosage.
           example: mg
     Day:
       type: object
@@ -401,10 +412,12 @@ components:
           type: integer
         meals:
           type: array
+          description: An array of meals associated with the day.
           items:
             $ref: '#/components/schemas/Meal'
         date:
           type: string
+          description: Date representation for the day.
           format: date
           example: 2022-07-05
     Weight:
