@@ -302,7 +302,7 @@ paths:
       responses:
         '201':
           description: Successfully created a new Day.
-  /day/{dayId}/meals:
+  /days/{dayId}/meals:
     get:
       tags:
         - Days
@@ -323,7 +323,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Meal'
-  /day/{dayId}/weight:
+  /days/{dayId}/weight:
     patch:
       tags:
         - Days
