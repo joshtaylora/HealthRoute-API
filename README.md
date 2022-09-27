@@ -18,3 +18,6 @@ The Health-Route application is designed to track health metrics and generate us
 * URLs are routed through the classes in the [controller directory](./src/main/java/dev/joshtaylor/healthrouteapi/controller)
 * The [domain directory](./src/main/java/dev/joshtaylor/healthrouteapi/domain) contains the java object models
     representing the domain objects
+* The [scripts directory](./scripts) contains scripts to automatically generate mock data for the H2 in-memory
+database used by the JPA repositories. To generate mock data on your local machine, run the 
+[mock.sh](./scripts/mock.sh) script in a linux shell.
