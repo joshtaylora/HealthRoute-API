@@ -1,7 +1,6 @@
 package dev.joshtaylor.healthrouteapi.controller;
 import dev.joshtaylor.healthrouteapi.domain.Day;
 import dev.joshtaylor.healthrouteapi.domain.Meal;
-import dev.joshtaylor.healthrouteapi.exception.MealNotFoundException;
 import dev.joshtaylor.healthrouteapi.repository.MealRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -57,6 +56,19 @@ public class MealController
             mealRepository.deleteById(meal_id);
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PatchMapping("/{meal_id}")
+    public ResponseEntity<Meal> updateMeal (@PathVariable Long meal_id,
+                                            @RequestBody Meal reqMeal) {
+        Optional<Meal> optionalMeal = mealRepository.findById(meal_id);
+        if (optionalMeal.isPresent()) {
+            Meal updatedMeal = mealRepository.save(reqMeal);
+            return new ResponseEntity<>(updatedMeal, HttpStatus.OK);
+        }
+        else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
