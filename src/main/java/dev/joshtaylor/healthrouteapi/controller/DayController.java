@@ -3,7 +3,6 @@ package dev.joshtaylor.healthrouteapi.controller;
 import dev.joshtaylor.healthrouteapi.domain.Day;
 import dev.joshtaylor.healthrouteapi.domain.Meal;
 import dev.joshtaylor.healthrouteapi.domain.Weight;
-import dev.joshtaylor.healthrouteapi.exception.DayNotFoundException;
 import dev.joshtaylor.healthrouteapi.repository.DayRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,12 +38,17 @@ public class DayController {
         return dayRepository.save(newDay);
     }
 
-    @GetMapping("/{dayId}/meals")
-    public List<Meal> getMealsForDay (@PathVariable Long dayId) {
-
-        Day day = dayRepository.findById(dayId)
-                               .orElseThrow(() -> new DayNotFoundException(dayId));
-        return day.getMeals();
+    @GetMapping("/{day_id}/meals")
+    public ResponseEntity<List<Meal>> getMealsForDay (@PathVariable Long day_id) {
+        Optional<Day> optionalDay = dayRepository.findById(day_id);
+        if (optionalDay.isPresent()) {
+            Day day = optionalDay.get();
+            List<Meal> meals = day.getMeals();
+            return new ResponseEntity<>(meals, HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @PatchMapping("{dayId}/weight")
