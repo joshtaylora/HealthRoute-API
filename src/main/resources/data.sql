@@ -1,0 +1,27 @@
+INSERT INTO DAYS (date) values ( '2022-12-24');
+INSERT INTO DAYS (date) values ( '2022-12-25');
+INSERT INTO DAYS (date) values ( '2022-12-26');
+INSERT INTO DAYS (date) values ( '2022-12-27');
+INSERT INTO DAYS (date) values ( '2022-12-28');
+
+INSERT INTO FOODS (NAME, CALORIES, CARBS, PROTEIN, FAT) values ( 'peanut butter', 250, 15, 18, 9 );
+INSERT INTO FOODS (NAME, CALORIES, CARBS, PROTEIN, FAT) values ( 'chocolate whey protein', 300, 15, 50, 15 );
+INSERT INTO FOODS (NAME, CALORIES, CARBS, PROTEIN, FAT) values ( 'protein pancakes', 500, 40, 30, 16 );
+INSERT INTO FOODS (NAME, CALORIES, CARBS, PROTEIN, FAT) values ( 'hamburger bun', 120, 30, 5, 3 );
+INSERT INTO FOODS (NAME, CALORIES, CARBS, PROTEIN, FAT) values ( 'bubba burger', 200, 3, 25, 12 );
+INSERT INTO FOODS (NAME, CALORIES, CARBS, PROTEIN, FAT) values ( 'pasta', 250, 15, 18, 9 );
+INSERT INTO FOODS (NAME, CALORIES, CARBS, PROTEIN, FAT) values ( 'meatballs', 250, 15, 18, 9 );
+
+INSERT INTO MEAL (TIMESTAMP) values ( '2022-07-05T06:12:40Z' );
+INSERT INTO MEAL (TIMESTAMP) values ( '2022-07-05T09:12:40Z' );
+INSERT INTO MEAL (TIMESTAMP) values ( '2022-07-05T12:12:40Z' );
+INSERT INTO MEAL (TIMESTAMP) values ( '2022-07-05T15:12:40Z' );
+INSERT INTO MEAL (TIMESTAMP) values ( '2022-07-05T18:12:40Z' );
+
+UPDATE FOODS set MEAL_ID = 1 where id=1;
+UPDATE FOODS set MEAL_ID = 1 where id=2;
+UPDATE FOODS set MEAL_ID = 1 where id=3;
+UPDATE FOODS set MEAL_ID = 2 where id=4;
+UPDATE FOODS set MEAL_ID = 2 where id=5;
+UPDATE FOODS set MEAL_ID = 3 where id=6;
+UPDATE FOODS set MEAL_ID = 3 where id=7;
