@@ -21,3 +21,12 @@ The Health-Route application is designed to track health metrics and generate us
 * The [scripts directory](./scripts) contains scripts to automatically generate mock data for the H2 in-memory
 database used by the JPA repositories. To generate mock data on your local machine, run the 
 [mock.sh](./scripts/mock.sh) script in a linux shell.
+
+## Feature Roadmap
+
+- [ ] Replace initial H2 in memory database with Postgres db
+- [ ] Create db init container for Postgres db
+- [ ] Add liquibase functionality for db versioning
+- [ ] Deploy service to Amazon EKS 
+- [ ] Manage continuous delivery and deployments through ADO pipelines
+- [ ] Begin development of UI component
