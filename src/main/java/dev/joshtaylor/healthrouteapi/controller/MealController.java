@@ -1,6 +1,9 @@
 package dev.joshtaylor.healthrouteapi.controller;
+
 import dev.joshtaylor.healthrouteapi.domain.Day;
 import dev.joshtaylor.healthrouteapi.domain.Meal;
+import dev.joshtaylor.healthrouteapi.exception.DayNotFoundException;
+import dev.joshtaylor.healthrouteapi.repository.DayRepository;
 import dev.joshtaylor.healthrouteapi.repository.MealRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,27 +21,36 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1/meals")
-public class MealController
-{
+@RequestMapping("/api/v1/")
+public class MealController {
+
+    @Autowired
+    private DayRepository dayRepository;
+
     @Autowired
     private MealRepository mealRepository;
-    @GetMapping("")
-    public ResponseEntity<List<Meal>> getAllMeals ()
-    {
+
+    @GetMapping("meals")
+    public ResponseEntity<List<Meal>> getAllMeals () {
+
         List<Meal> meals = mealRepository.findAll();
         return new ResponseEntity<>(meals, HttpStatus.OK);
     }
 
-    @PostMapping("")
-    public ResponseEntity<Meal> createMeal (@RequestBody Meal mealReq) {
-        Meal newMeal = new Meal(mealReq.getTimestamp());
-        Meal meal = mealRepository.save(newMeal);
-        return new ResponseEntity<>(meal, HttpStatus.CREATED);
+    @PostMapping("days/{day_id}/meals")
+    public ResponseEntity<Meal> createMeal (@PathVariable Long day_id,
+                                            @RequestBody Meal mealReq) {
+
+        Meal newMeal = dayRepository.findById(day_id).map(day -> {
+            mealReq.setDay(day);
+            return mealRepository.save(mealReq);
+        }).orElseThrow(() -> new DayNotFoundException(day_id));
+        return new ResponseEntity<>(newMeal, HttpStatus.CREATED);
     }
 
-    @GetMapping("/{meal_id}")
+    @GetMapping("meals/{meal_id}")
     public ResponseEntity<Meal> getMealById (@PathVariable Long meal_id) {
+
         Optional<Meal> optionalMeal = mealRepository.findById(meal_id);
         if (optionalMeal.isPresent()) {
             Meal meal = optionalMeal.get();
@@ -49,20 +61,23 @@ public class MealController
         }
     }
 
-    @DeleteMapping("/{meal_id}")
+    @DeleteMapping("meals/{meal_id}")
     public ResponseEntity<Meal> deleteMeal (@PathVariable Long meal_id) {
+
         Optional<Meal> optionalMeal = mealRepository.findById(meal_id);
         if (optionalMeal.isPresent()) {
             mealRepository.deleteById(meal_id);
             return new ResponseEntity<>(HttpStatus.OK);
-        } else {
+        }
+        else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
-    @PatchMapping("/{meal_id}")
+    @PatchMapping("meals/{meal_id}")
     public ResponseEntity<Meal> updateMeal (@PathVariable Long meal_id,
                                             @RequestBody Meal reqMeal) {
+
         Optional<Meal> optionalMeal = mealRepository.findById(meal_id);
         if (optionalMeal.isPresent()) {
             Meal updatedMeal = mealRepository.save(reqMeal);
@@ -73,22 +88,5 @@ public class MealController
         }
     }
 
-    @PatchMapping("/{meal_id}/day")
-    public ResponseEntity<Meal> addMealToDay (@PathVariable Long meal_id,
-    @RequestBody Day day) {
-        Long dayId = day.getId();
-        Optional<Meal> optionalMeal = mealRepository.findById(meal_id);
-
-        if (optionalMeal.isPresent()) {
-            Meal meal = optionalMeal.get();
-            meal.setDay_id(dayId);
-            Meal updatedMeal = mealRepository.save(meal);
-            return new ResponseEntity<>(updatedMeal, HttpStatus.OK);
-        }
-        else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-    }
 
 }
