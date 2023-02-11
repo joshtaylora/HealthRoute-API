@@ -1,6 +1,5 @@
 package dev.joshtaylor.healthrouteapi.controller;
 
-import dev.joshtaylor.healthrouteapi.domain.Day;
 import dev.joshtaylor.healthrouteapi.domain.Meal;
 import dev.joshtaylor.healthrouteapi.exception.DayNotFoundException;
 import dev.joshtaylor.healthrouteapi.repository.DayRepository;
@@ -36,6 +35,16 @@ public class MealController {
         List<Meal> meals = mealRepository.findAll();
         return new ResponseEntity<>(meals, HttpStatus.OK);
     }
+
+    @GetMapping("days/{day_id}/meals")
+    public ResponseEntity<List<Meal>> getMealsForDay(@PathVariable Long day_id) {
+        if (!dayRepository.existsById(day_id)) {
+            throw new DayNotFoundException(day_id);
+        }
+        List<Meal> meals = mealRepository.findyByDayId(day_id);
+        return new ResponseEntity<>(meals, HttpStatus.OK);
+    }
+
 
     @PostMapping("days/{day_id}/meals")
     public ResponseEntity<Meal> createMeal (@PathVariable Long day_id,
