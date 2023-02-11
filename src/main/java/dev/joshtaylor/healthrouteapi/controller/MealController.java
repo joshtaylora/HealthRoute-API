@@ -37,7 +37,8 @@ public class MealController {
     }
 
     @GetMapping("days/{day_id}/meals")
-    public ResponseEntity<List<Meal>> getMealsForDay(@PathVariable Long day_id) {
+    public ResponseEntity<List<Meal>> getMealsForDay (@PathVariable Long day_id) {
+
         if (!dayRepository.existsById(day_id)) {
             throw new DayNotFoundException(day_id);
         }
@@ -50,10 +51,12 @@ public class MealController {
     public ResponseEntity<Meal> createMeal (@PathVariable Long day_id,
                                             @RequestBody Meal mealReq) {
 
-        Meal newMeal = dayRepository.findById(day_id).map(day -> {
-            mealReq.setDay(day);
-            return mealRepository.save(mealReq);
-        }).orElseThrow(() -> new DayNotFoundException(day_id));
+        Meal newMeal = dayRepository.findById(day_id)
+                                    .map(day -> {
+                                        mealReq.setDay(day);
+                                        return mealRepository.save(mealReq);
+                                    })
+                                    .orElseThrow(() -> new DayNotFoundException(day_id));
         return new ResponseEntity<>(newMeal, HttpStatus.CREATED);
     }
 
@@ -81,6 +84,16 @@ public class MealController {
         else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @DeleteMapping("days/{day_id}/meals")
+    public ResponseEntity<List<Meal>> deleteAllMealsForDay (@PathVariable Long day_id) {
+
+        if (!dayRepository.existsById(day_id)) {
+            throw new DayNotFoundException(day_id);
+        }
+        mealRepository.deleteByDayId(day_id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PatchMapping("meals/{meal_id}")
