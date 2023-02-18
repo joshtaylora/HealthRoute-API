@@ -38,28 +38,18 @@ public class DayController {
         return dayRepository.save(newDay);
     }
 
-    @GetMapping("/{day_id}/meals")
-    public ResponseEntity<List<Meal>> getMealsForDay (@PathVariable Long day_id) {
-        Optional<Day> optionalDay = dayRepository.findById(day_id);
-        if (optionalDay.isPresent()) {
-            Day day = optionalDay.get();
-            List<Meal> meals = day.getMeals();
-            return new ResponseEntity<>(meals, HttpStatus.OK);
-        }
-        else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
-
     @PatchMapping("{dayId}/weight")
-    public ResponseEntity<Day> setWeightForDay(@PathVariable Long dayId, @RequestBody Weight weight) {
+    public ResponseEntity<Day> setWeightForDay (@PathVariable Long dayId,
+                                                @RequestBody Weight weight) {
+
         Optional<Day> optionalDay = dayRepository.findById(dayId);
         if (optionalDay.isPresent()) {
             Day day = optionalDay.get();
             day.setWeight(weight);
             Day updatedDay = dayRepository.save(day);
             return new ResponseEntity<>(updatedDay, HttpStatus.OK);
-        } else {
+        }
+        else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }

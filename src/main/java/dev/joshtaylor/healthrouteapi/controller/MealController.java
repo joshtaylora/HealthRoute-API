@@ -42,7 +42,7 @@ public class MealController {
         if (!dayRepository.existsById(day_id)) {
             throw new DayNotFoundException(day_id);
         }
-        List<Meal> meals = mealRepository.findyByDayId(day_id);
+        List<Meal> meals = mealRepository.findByDayId(day_id);
         return new ResponseEntity<>(meals, HttpStatus.OK);
     }
 

@@ -27,9 +27,6 @@ public class Day {
 
     private String date;
 
-    @OneToMany(fetch = FetchType.EAGER, targetEntity = Meal.class, mappedBy = "day_id")
-    private List<Meal> meals;
-
     @OneToMany(targetEntity = Medication.class, mappedBy = "day_id")
     private List<Medication> medications;
 
