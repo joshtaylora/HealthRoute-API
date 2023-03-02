@@ -20,24 +20,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Meal'
-    post:
-      tags:
-        - Meals
-      summary: Create a new Meal
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                timestamp:
-                  type: string
-      responses:
-        '201':
-          description: Created
-        '400':
-          description: Bad Request, failed to create Meal
   /meals/{mealId}:
     get:
       tags:
@@ -300,16 +282,16 @@ paths:
                   format: date
                   example: 2022-07-05
       responses:
-        '201':
+        201:
           description: Successfully created a new Day.
-  /days/{dayId}/meals:
+  /days/{day_id}/meals:
     get:
       tags:
         - Days
       summary: Retrieve the meals for a day
       parameters:
         - in: path
-          name: dayId
+          name: day_id
           schema:
             type: integer
           description: Numeric ID for a Day object.
@@ -323,14 +305,46 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Meal'
-  /days/{dayId}/weight:
+    post:
+      tags:
+        - Days
+        - Meals
+      summary: Create a meal and add it to the day specified by the day_id path parameter
+      parameters:
+        - in: path
+          name: day_id
+          schema:
+            type: integer
+          description: Numeric ID for a Day object.
+          required: true
+      responses:
+        201:
+          description: Successfully created a meal object.
+    delete:
+      tags:
+        - Days
+        - Meals
+      summary: Delete all Meal's associated with a Day
+      parameters:
+        - in: path
+          name: day_id
+          schema:
+            type: integer
+          description: Numeric ID for a Day object.
+          required: true
+      responses:
+        200:
+          description: Successfully deleted all meals associated with the Day.
+        404:
+          description: Meals associated with the specified day_id could not be found.
+  /days/{day_id}/weight:
     patch:
       tags:
         - Days
       summary: Update a Day object with a Weight.
       parameters:
         - in: path
-          name: dayId
+          name: day_id
           schema:
             type: integer
           description: Numeric ID for a Day object.
